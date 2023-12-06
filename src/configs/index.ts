@@ -1,1 +1,1 @@
-export { TypeOrmConfigService } from './typeorm.config';
+// export { TypeOrmConfigService } from './typeorm.config';
