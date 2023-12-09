@@ -1,26 +1,65 @@
-import { Injectable } from '@nestjs/common';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
+import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
+import { LoginDto, RegisterDto } from "./dto/auth.dto";
+import { UsersService } from "../users/users.service";
+import { User } from "../entities";
+import * as bcrypt from "bcryptjs";
+import { JwtService } from "@nestjs/jwt";
+import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class AuthService {
-  create(createAuthDto: CreateAuthDto) {
-    return 'This action adds a new auth';
+
+  @Inject(JwtService)
+  private readonly jwt: JwtService;
+
+  @Inject(UsersService)
+  private readonly usersService: UsersService;
+
+  constructor(jwt: JwtService) {
+    this.jwt = jwt;
   }
 
-  findAll() {
-    return `This action returns all auth`;
+  async signIn(body: LoginDto) {
+    const { email, password } = body;
+    const user: User = await this.usersService.findOne(email);
+
+    if (!user) {
+      throw new HttpException("No user found", HttpStatus.NOT_FOUND);
+    }
+
+    const isPasswordValid: boolean = bcrypt.compareSync(password, user.password);
+
+    if (!isPasswordValid) {
+      throw new HttpException("No user found", HttpStatus.NOT_FOUND);
+    }
+    return {
+      token: await this.generateToken(user)
+    };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
+  async signUp(body: RegisterDto) {
+    const { firstName, lastName, email, password, phone }: RegisterDto = body;
+    let user: User = await this.usersService.findOne(email);
+
+    if (user) {
+      throw new HttpException("Conflict", HttpStatus.CONFLICT);
+    }
+    user = new User();
+    user.firstName = firstName;
+    user.lastName = lastName;
+    user.email = email;
+    user.phone = phone;
+    user.password = await this.encodePassword(password);
+    return this.usersService.create(user);
   }
 
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
+  async generateToken(user: User): Promise<string> {
+    return this.jwt.sign({ id: user.id, email: user.email, phone: user.phone });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
+  async encodePassword(password: string): Promise<string> {
+    const salt: string = bcrypt.genSaltSync(10);
+
+    return bcrypt.hashSync(password, salt);
   }
 }

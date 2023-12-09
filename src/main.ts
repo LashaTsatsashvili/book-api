@@ -1,14 +1,18 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from "@nestjs/platform-express";
-import { Logger } from "@nestjs/common";
+import { Logger, ValidationPipe } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
+import { MySQLExceptionFilter } from "./filters/mysql-exception.filter";
 
 async function bootstrap() {
   const app: NestExpressApplication = await NestFactory.create(AppModule);
   const config: ConfigService = app.get(ConfigService);
   const globalPrefix = 'api/v1';
   app.setGlobalPrefix(globalPrefix);
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
+  // app.useGlobalFilters(new MySQLExceptionFilter());
+
   const port: number = config.get<number>('PORT');
   await app.listen(port);
   Logger.log(

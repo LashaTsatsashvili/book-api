@@ -1,8 +1,9 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, OneToMany } from "typeorm";
 import { Base } from "./base.entity";
+import { Book } from "./book.entity";
+import { ReadingHistory } from "./reading-history.entity";
 
-
-@Entity('users')
+@Entity("users")
 export class User extends Base {
   @Column()
   firstName: string;
@@ -19,9 +20,9 @@ export class User extends Base {
   @Column()
   password: string;
 
-  // @BeforeInsert()
-  // async hashPassword() {
-  //   // TODO: hash the password
-  //   this.password = 'password';
-  // }
+  @OneToMany(() => Book, (book) => book.uploader)
+  books: Book[];
+
+  @OneToMany(() => ReadingHistory, (readingHistory) => readingHistory.user)
+  readingHistory: ReadingHistory[];
 }
