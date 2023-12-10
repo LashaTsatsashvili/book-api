@@ -2,8 +2,7 @@ import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { BookDTO, UpdateBookDTO } from "./dto/book.dto";
 import { InjectRepository } from "@nestjs/typeorm";
 import { DataSource, Repository } from "typeorm";
-import { Book } from "../entities/book.entity";
-import { User } from "../entities";
+import { Book, User } from "../entities";
 import { PageService } from "../page/page.service";
 import { ReadingHistoryService } from "../reading-history/reading-history.service";
 
