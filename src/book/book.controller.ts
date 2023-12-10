@@ -11,7 +11,7 @@ import {
   getAllResponses,
   getOneResponses,
   updateResponse
-} from "./swagger/swagger-responses";
+} from "./swagger/book.swagger.responses";
 
 @Controller("books")
 @UseFilters(MySQLExceptionFilter)

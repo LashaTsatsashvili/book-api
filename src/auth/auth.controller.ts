@@ -1,8 +1,8 @@
-import { Controller, Post, Body, UseInterceptors, ClassSerializerInterceptor, UseGuards } from "@nestjs/common";
+import { Controller, Post, Body, UseInterceptors, ClassSerializerInterceptor } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { LoginDto, RegisterDto } from "./dto/auth.dto";
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { signIn, signUpResponse } from "./swagger/swagger-responses";
+import { signIn, signUpResponse } from "./swagger/auth.swagger.responses";
 
 @ApiTags('auth')
 @Controller("auth")
