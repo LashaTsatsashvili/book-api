@@ -3,7 +3,6 @@ import { AppModule } from "./app.module";
 import { NestExpressApplication } from "@nestjs/platform-express";
 import { Logger, ValidationPipe } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import { MySQLExceptionFilter } from "./filters/mysql-exception.filter";
 import { setupSwagger } from "./setup-swagger";
 
 async function bootstrap() {
@@ -12,7 +11,6 @@ async function bootstrap() {
   const globalPrefix = "api/v1";
   app.setGlobalPrefix(globalPrefix);
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
-  // app.useGlobalFilters(new MySQLExceptionFilter());
   setupSwagger(app);
   const port: number = config.get<number>("PORT");
   await app.listen(port);

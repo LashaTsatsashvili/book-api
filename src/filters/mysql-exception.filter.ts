@@ -1,5 +1,5 @@
 import { Catch, ExceptionFilter, ArgumentsHost, HttpStatus } from "@nestjs/common";
-import { QueryFailedError,Connection } from "typeorm";
+import { QueryFailedError } from "typeorm";
 
 @Catch(QueryFailedError)
 export class MySQLExceptionFilter implements ExceptionFilter {
