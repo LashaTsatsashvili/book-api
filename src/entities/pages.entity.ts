@@ -4,7 +4,6 @@ import { Book } from "./book.entity";
 
 @Entity("pages")
 @Unique(['book', 'pageNumber'])
-// @Index(['book', 'pageNumber'], { unique: true })
 export class Page extends Base {
   @Column()
   content: string;

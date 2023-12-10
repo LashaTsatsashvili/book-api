@@ -8,12 +8,21 @@ export class PageService {
   @InjectRepository(Page)
   private readonly repository: Repository<Page>;
 
-  async create(pages: any, queryRunner): Promise<Page> {
-    return queryRunner.manager.update(Page, pages);
+  async create(pages: Page[], queryRunner): Promise<Page> {
+    return queryRunner.manager.save(Page, pages);
   }
 
-  async findIds(ids: number[]): Promise<number[]> {
-    return this.repository.findBy({ id: In(ids) }).then((pages) => pages.map((page) => page.id));
+  async updateArray(pages: Page[], queryRunner) {
+    const updatePromises = pages.map(({ id, pageNumber, content, book }) => {
+      return queryRunner.manager
+        .createQueryBuilder()
+        .update(Page)
+        .set({ pageNumber, content })
+        .where("id = :id AND bookId=:bookId", { id, bookId: book.id })
+        .execute();
+    });
+    await Promise.all(updatePromises);
+
   }
 
   async findPage(bookId: number, page: number): Promise<boolean> {

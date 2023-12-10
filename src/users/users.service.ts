@@ -10,15 +10,11 @@ export class UsersService {
   private readonly repository: Repository<User>;
 
   create(user: User) {
-    return this.repository.save(user)
-  }
-
-  async findAll() {
-    return  'asdsad'
+    return this.repository.save(user);
   }
 
   findOne(email: string) {
-    return  this.repository.findOne({ where: { email } });
+    return this.repository.findOne({ where: { email } });
   }
 
   remove(id: number) {

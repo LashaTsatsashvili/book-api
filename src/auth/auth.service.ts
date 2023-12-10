@@ -24,13 +24,13 @@ export class AuthService {
     const user: User = await this.usersService.findOne(email);
 
     if (!user) {
-      throw new HttpException("No user found", HttpStatus.NOT_FOUND);
+      throw new HttpException("მომხმარებელი ვერ მოიძებნა", HttpStatus.NOT_FOUND);
     }
 
     const isPasswordValid: boolean = bcrypt.compareSync(password, user.password);
 
     if (!isPasswordValid) {
-      throw new HttpException("No user found", HttpStatus.NOT_FOUND);
+      throw new HttpException("მომხმარებელი ვერ მოიძებნა", HttpStatus.NOT_FOUND);
     }
     return {
       token: await this.generateToken(user)
@@ -42,7 +42,7 @@ export class AuthService {
     let user: User = await this.usersService.findOne(email);
 
     if (user) {
-      throw new HttpException("Conflict", HttpStatus.CONFLICT);
+      throw new HttpException("ასეთი მომხმარებელი უკვე არსებობს", HttpStatus.CONFLICT);
     }
     user = new User();
     user.firstName = firstName;

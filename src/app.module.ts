@@ -11,7 +11,7 @@ import { BookModule } from "./book/book.module";
 import { PageModule } from "./page/page.module";
 import { APP_FILTER } from "@nestjs/core";
 import { MySQLExceptionFilter } from "./filters/mysql-exception.filter";
-import { ReadingHistoryModule } from './reading-history/reading-history.module';
+import { ReadingHistoryModule } from "./reading-history/reading-history.module";
 
 @Module({
   imports: [
@@ -24,8 +24,8 @@ import { ReadingHistoryModule } from './reading-history/reading-history.module';
     PageModule,
     ReadingHistoryModule
   ],
-  controllers: [AppController],
-  providers: [AppService, {
+  controllers: [],
+  providers: [{
     provide: APP_FILTER,
     useClass: MySQLExceptionFilter
   }]

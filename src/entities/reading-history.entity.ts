@@ -4,6 +4,7 @@ import { Book } from "./book.entity";
 import { User } from "./user.entity";
 
 @Entity("reading_history")
+// @Unique(["user", "book"])
 export class ReadingHistory extends Base {
 
   @ManyToOne(() => User)
@@ -12,6 +13,6 @@ export class ReadingHistory extends Base {
   @ManyToOne(() => Book)
   book: Book;
 
-  @Column({ default: null })
+  @Column()
   lastReadPage: number;
 }
