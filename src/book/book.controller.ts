@@ -17,7 +17,7 @@ import {
 @UseFilters(MySQLExceptionFilter)
 @ApiBearerAuth("JWT-auth")
 @UseGuards(AuthGuard)
-@ApiTags('books')
+@ApiTags("books")
 export class BookController {
   constructor(private readonly bookService: BookService) {
   }

@@ -1,5 +1,5 @@
-import { Module } from '@nestjs/common';
-import { PageService } from './page.service';
+import { Module } from "@nestjs/common";
+import { PageService } from "./page.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { Page } from "../entities";
 
@@ -10,4 +10,5 @@ import { Page } from "../entities";
   providers: [PageService],
   exports: [PageService]
 })
-export class PageModule {}
+export class PageModule {
+}

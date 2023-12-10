@@ -1,1 +1,1 @@
-export { Match } from './match.decorator';
+export { Match } from "./match.decorator";

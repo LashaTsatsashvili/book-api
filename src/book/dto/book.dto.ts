@@ -5,16 +5,16 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { IsUnique } from "../decorators/unique.decorator";
-import { Page } from "../../entities/pages.entity";
+import { Page } from "../../entities";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class pagesDTO {
-  @ApiProperty({ description: 'გვერდის კონტენტი' })
+  @ApiProperty({ description: "გვერდის კონტენტი" })
   @IsString()
   @IsNotEmpty({ message: "შეიყვანეთ ტექსტი" })
   content: string;
 
-  @ApiProperty({ description: 'გვერდის რიცხვი' })
+  @ApiProperty({ description: "გვერდის რიცხვი" })
   @IsNumber()
   @IsNotEmpty({ message: "შეიყვანეთ გვერდი " })
   pageNumber: number;
@@ -22,12 +22,12 @@ export class pagesDTO {
 }
 
 export class BookDTO {
-  @ApiProperty({ description: 'წიგნის სათაური' })
+  @ApiProperty({ description: "წიგნის სათაური" })
   @IsString()
   @IsNotEmpty({ message: "შეიყვანეთ წიგნის დასახელება" })
   public readonly title: string;
 
-  @ApiProperty({ description: 'წიგნის ავტორი' })
+  @ApiProperty({ description: "წიგნის ავტორი" })
   @IsString()
   @IsNotEmpty({ message: "შეიყვანეთ წიგნის ავტორი" })
   public readonly author: string;
@@ -35,7 +35,7 @@ export class BookDTO {
   @ApiProperty({
     isArray: true,
     type: pagesDTO,
-    description: 'წიგნის გვერდების მასივი',
+    description: "წიგნის გვერდების მასივი"
   })
   @IsArray()
   @Type(() => pagesDTO)
@@ -45,20 +45,20 @@ export class BookDTO {
 }
 
 export class updatePagesDTO extends pagesDTO {
-  @ApiProperty({ description: 'გვერდის ID' })
+  @ApiProperty({ description: "გვერდის ID" })
   @IsNotEmpty({ message: "გვერდის განახლებისთვის საჭიროა id" })
   public readonly id: number;
 }
 
 export class UpdateBookDTO extends BookDTO {
-  @ApiProperty({ description: 'წიგნის ID' })
+  @ApiProperty({ description: "წიგნის ID" })
   @IsNotEmpty({ message: "წიგნის განახლებისთვის საჭიროა id" })
   public readonly id: number;
 
   @ApiProperty({
     isArray: true,
     type: updatePagesDTO,
-    description: 'წიგნის გვერდების განახლებული მასივი',
+    description: "წიგნის გვერდების განახლებული მასივი"
   })
   @IsArray()
   @Type(() => updatePagesDTO)

@@ -169,7 +169,7 @@ export const deleteResponse = {
   }
 };
 export const createOrUpdateHistoryResponse = {
-  success : {
+  success: {
     status: 200,
     description: "Create or update reading history for a book",
     schema: {
@@ -179,7 +179,7 @@ export const createOrUpdateHistoryResponse = {
       }
     }
   },
-  forbidden : {
+  forbidden: {
     status: 403, description: "ცუდი რექვესტი", schema: {
       properties: {
         statusCode: { type: "number", example: 403 },
