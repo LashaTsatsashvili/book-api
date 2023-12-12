@@ -332,11 +332,6 @@ describe("BookController (e2e)", () => {
               content: "string",
               pageNumber: 2
             },
-            {
-              id: savedPages[1].id,
-              content: "string",
-              pageNumber: 1
-            }
           ]
         }).expect((res) => {
           expect(res.body).toEqual(expect.objectContaining(

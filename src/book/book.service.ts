@@ -20,7 +20,6 @@ export class BookService {
   }
 
   async findOne(id: number): Promise<Book> {
-    //TODO კონკრეტული იუზერის ისტორიის წამოღება
     const book = await this.repository.findOne({ where: { id }, relations: ["pages", "readingHistory"] });
     if (book) {
       return book;
