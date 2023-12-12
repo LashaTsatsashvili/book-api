@@ -3,6 +3,8 @@
 პროექტს ჭირდება mysql-ის ბაზა
 ასევე უნდა შეიქმნას .env ფაილი რომლის ველების კოპირება შეგიძლიათ .env.example ფაილიდან example ფაილი სატესტოდ შევსებულია
 
+documentation link : http://localhost:{:port}/documentation
+ავტორიზაციის ენდფოინთებისთვის მომხმარებლის ტოკენია ჩასაკოპირებელი input-ში
 ## Installation
 
 ```bash
