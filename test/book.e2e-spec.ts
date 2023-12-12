@@ -220,10 +220,9 @@ describe("BookController (e2e)", () => {
   describe("/books/ (PUT)", () => {
     it("add new book success", () => {
       return request(app.getHttpServer())
-        .put(`/books`)
+        .put(`/books/${savedBook.id}`)
         .set("Authorization", `Bearer ${authToken}`)
         .send({
-          id: savedBook.id,
           author: "new authir",
           title: "updated title",
           pages: [
@@ -253,10 +252,9 @@ describe("BookController (e2e)", () => {
     });
     it("add new book bad request", () => {
       return request(app.getHttpServer())
-        .put(`/books`)
+        .put(`/books/${savedBook.id}`)
         .set("Authorization", `Bearer ${authToken}`)
         .send({
-          id: savedBook.id,
           author: "new authir",
           pages: [
             {
@@ -296,7 +294,7 @@ describe("BookController (e2e)", () => {
       const newPages = pages.map(page => ({ ...page, book: dbdBook }));
       const dbPages = await pagesRepository.save(newPages);
       request(app.getHttpServer())
-        .put(`/books`)
+        .put(`/books/${dbdBook.id}`)
         .set("Authorization", `Bearer ${authToken}`)
         .send({
           id: dbdBook.id,
@@ -323,10 +321,9 @@ describe("BookController (e2e)", () => {
     });
     it("add new book internal server error", () => {
       return request(app.getHttpServer())
-        .put(`/books`)
+        .put(`/books/${savedBook.id}`)
         .set("Authorization", `Bearer ${authToken}`)
         .send({
-          id: savedBook.id,
           author: "new authir",
           title: "updated title",
           pages: [
