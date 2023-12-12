@@ -51,9 +51,7 @@ export class updatePagesDTO extends pagesDTO {
 }
 
 export class UpdateBookDTO extends BookDTO {
-  @ApiProperty({ description: "წიგნის ID" })
-  @IsNotEmpty({ message: "წიგნის განახლებისთვის საჭიროა id" })
-  public readonly id: number;
+  public readonly id?: number;
 
   @ApiProperty({
     isArray: true,

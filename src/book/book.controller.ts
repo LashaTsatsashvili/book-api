@@ -50,9 +50,10 @@ export class BookController {
   @ApiResponse(updateResponse.forbidden)
   @ApiResponse(updateResponse.badRequest)
   @ApiResponse(updateResponse.internalServerError)
-  @Put()
-  update(@Request() req, @Body() book: UpdateBookDTO) {
-    return this.bookService.update(book, req.user);
+  @Put(":id")
+  update(@Request() req, @Param("id") id: number, @Body() book: UpdateBookDTO) {
+    const b = { id, ...book };
+    return this.bookService.update(b, req.user);
   }
 
   @ApiOperation({ summary: "წიგნის წაშლა" })

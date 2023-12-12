@@ -42,7 +42,6 @@ describe("AuthController (e2e)", () => {
               lastName: expect.any(String),
               email: expect.any(String),
               phone: expect.any(String),
-              password: expect.any(String),
               deletedAt: null,
               createdAt: expect.any(String),
               updatedAt: expect.any(String)
